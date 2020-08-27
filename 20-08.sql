@@ -170,5 +170,6 @@ select distinct descricao as nomedepartamento, sigla as codigoreduzido from depa
 select distinct idade from aluno;
 -- C
 select matricula,nome,(idade + 2) as provavel_idade_formando from aluno;
-
+-- D
+select concat ("Aluno: " ,a.nome," nascido em: ",a.dtaNascimento," com idade aproximada de: ",(a.idade + 5))  from aluno a
 
