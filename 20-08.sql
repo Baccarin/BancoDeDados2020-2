@@ -36,14 +36,40 @@ set idade = 20
 select * from aluno;
 
 ------------------------------------------------------------
+create table disciplina(
+	id int unique auto_increment,
+	nome varchar (100),
+	numero_alunos int (3),
+	turma int (4) default 1,
+	cargaHoraria int (3)
+);
+
+insert into disciplina(nome,cargaHoraria)
+values ("Banco de dados",10);
+
+insert into disciplina(nome,cargaHoraria)
+values ("Alga",40);
+
+insert into disciplina(nome,cargaHoraria)
+values ("Calculo",30);
+
+insert into disciplina(nome,cargaHoraria)
+values ("Projeto",50);
+
+insert into disciplina(nome,cargaHoraria)
+values ("Nao sei",100);
+
+select * from disciplina;
 
 
+------------------------------------------------------------
 create table matricula (
 	matricula_id int not null,
 	cod_disciplina int,
 	dtefetivado timestamp default CURRENT_TIMESTAMP,
-	PRIMARY key(matricula_id,cod_disciplina)
-);
+	foreign key (matricula_id) references aluno (matricula),
+	foreign key (cod_disciplina) references disciplina (id)
+	);
 
 insert into matricula (matricula_id,cod_disciplina)
 values (1,2);
@@ -72,33 +98,6 @@ values (4,3);
 select * from matricula;
 
 ------------------------------------------------------------
-
-create table disciplina(
-	id int unique auto_increment,
-	nome varchar (100),
-	numero_alunos int (3),
-	turma int (4) default 1,
-	cargaHoraria int (3)
-);
-
-
-insert into disciplina(nome,cargaHoraria)
-values ("Banco de dados",10);
-
-insert into disciplina(nome,cargaHoraria)
-values ("Alga",40);
-
-insert into disciplina(nome,cargaHoraria)
-values ("Calculo",30);
-
-insert into disciplina(nome,cargaHoraria)
-values ("Projeto",50);
-
-insert into disciplina(nome,cargaHoraria)
-values ("Nao sei",100);
-
-select * from disciplina;
-
 
 ------------------------------------------------------------
 
