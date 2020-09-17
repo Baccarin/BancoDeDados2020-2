@@ -56,33 +56,38 @@ select a.nome,f.nivel from aluno a left join aluno_faixa af on af.aluno_matricul
 left join faixanivel f on f.id = af.nivel_id;
 
 -- D
-select * from disciplina
-
-
-select d.nome, count(a.matricula) from matricula m right join aluno a on m.matricula_id = a.matricula
-right join disciplina d on d.id = m.cod_disciplina
-group by m.cod_disciplina
-order by m.cod_disciplina;
-
-select d.id,d.nome, count(a.matricula) from disciplina d left join matricula m on m.cod_disciplina = d.id
+select d.id,d.nome, coalesce(count(a.matricula),0) numero_alunos from disciplina d left join matricula m on m.cod_disciplina = d.id
 left join aluno a on a.matricula = m.matricula_id
-group by m.cod_disciplina
-order by m.cod_disciplina
+group by d.id
+order by d.id;
 
+-- E
+select a.nome,coalesce(d.nome,"Sem matricula") disciplinas from aluno a left join matricula m on m.matricula_id = a.matricula 
+left join disciplina d on d.id = m.cod_disciplina;
 
-insert into disciplina (nome,numero_alunos,turma,cargaHoraria)
-values ("Teste")
+-- 01
+select f.nome , coalesce(g.nome,"Sem gerente") gerente from funcionario f left join gerente g on g.id = f.cod_gerente;
 
-select * from aluno_faixa
+-- 02
+select a.nome from aluno a
+union all
+select f.nome from funcionario f;
 
-select * from aluno
+-- 03
+select a.nome from aluno a
+union
+select f.nome from funcionario f;
 
-select * from faixanivel
+-- 04
+select concat(a.nome , " está matriculada(o) em: ", coalesce(d.nome,"Sem disciplinas")) from aluno a 
+left join matricula m on m.matricula_id = a.matricula 
+left join disciplina d on d.id = m.cod_disciplina;
 
-select *  from departamento
-
-select * from matricula
-
-select * from disciplina
-
-select * from funcionario
+-- 05
+select concat("insert into aluno (nome,telefone,cidade,email,idade) values (", a.nome, " ," ,
+a.telefone, " ,", a.cidade, " ," ,a.email, " ,", a.cidade, ");")
+from aluno a
+union all 
+select concat("insert into funcionario (nome,cargo,salario,departamento_id,cod_gerente) values(",f.nome," ,",f.cargo," ,",f.salario," ,",
+f.departamento_id, ");")
+from funcionario f
