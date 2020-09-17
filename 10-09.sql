@@ -52,8 +52,8 @@ values(6,1),(7,1),(3,2),(4,2),(5,2),(1,4),(2,4);
 select matricula from aluno
 where idade between 10 and 15
 
-select a.nome,f.nivel from aluno a left join aluno_faixa af on af.aluno_matricula = a.matricula
-left join faixanivel f on f.id = af.nivel_id;
+select a.nome, n.nivel from aluno a left join aluno_nivel af on af.aluno_matricula = a.matricula
+left join nivel n on n.id = af.nivel_id;
 
 -- D
 select d.id,d.nome, coalesce(count(a.matricula),0) numero_alunos from disciplina d left join matricula m on m.cod_disciplina = d.id
